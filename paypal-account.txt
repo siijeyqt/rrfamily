@@ -1,0 +1,21 @@
+Developer account
+Email: rrfamily@gmail.com
+Password: rrfamily051399
+
+
+
+https://www.sandbox.paypal.com/signin
+
+Sandbox -  Personal
+rrfamily_sandbox@personal.com
+rrfamily051399
+
+Sandbox - Business
+rrfamily_sandbox@business.com
+rrfamily051399
+
+API credential
+App name: APP_RRFAMILY_NEW
+rrfamily_sandbox@business.com
+Client ID: Acjm9MzddsaTPRNABVXZHYsGUlw0KIlLt2ZztbVDvUoPgCdNJCaaFO1dI7K_i0kbLFDcAecCF1yIalW9
+Secret: ECNMRN-LbWYuPAeHa-dPY4hhMhRZTJteeoFZvzSk9kw9e35WSh0EWszHOHiQ8a4sQmCRq_nm2til4Oa2
