@@ -35,7 +35,7 @@
                     <li class="{{Request::is('admin/page/faq*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_faq')}}"><i class="fa fa-angle-right"></i>FAQs</a></li>
                     <li class="{{Request::is('admin/page/blog*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_blog')}}"><i class="fa fa-angle-right"></i>Blog</a></li>
                     <li class="{{Request::is('admin/page/room*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_room')}}"><i class="fa fa-angle-right"></i>Room</a></li>
-                    <li class="{{Request::is('admin/page/cart*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_cart')}}"><i class="fa fa-angle-right"></i>Cart</a></li>
+                    <li class="{{Request::is('admin/page/cart*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_cart')}}"><i class="fa fa-angle-right"></i>Bookings</a></li>
                     <li class="{{Request::is('admin/page/checkout*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_checkout')}}"><i class="fa fa-angle-right"></i>Checkout</a></li>
                     <li class="{{Request::is('admin/page/payment*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_payment')}}"><i class="fa fa-angle-right"></i>Payment</a></li>
                     <li class="{{Request::is('admin/page/signup*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_signup')}}"><i class="fa fa-angle-right"></i>Sign Up</a></li>
@@ -54,7 +54,7 @@
             </li>
 
             <li class="{{Request::is('admin/customers') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_customer')}}"><i class="fa fa-user-o"></i> <span>Customers</span></a></li>
-            <li class="{{Request::is('admin/order*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_order')}}"><i class="fa fa-book"></i> <span>Orders</span></a></li>
+            <li class="{{Request::is('admin/order*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_order')}}"><i class="fa fa-book"></i> <span>Bookings</span></a></li>
             <li class="{{Request::is('admin/sales-report') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_sales_report')}}"><i class="fa fa-shopping-cart"></i> <span>Sales Report</span></a></li>
             <li class="{{Request::is('admin/slide*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_slide')}}"><i class="fa fa-sliders"></i> <span>Slide</span></a></li>
             <li class="{{Request::is('admin/feature*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_feature_view')}}"><i class="fa fa-pagelines"></i> <span>Feature</span></a></li>

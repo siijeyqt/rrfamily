@@ -30,6 +30,7 @@
                                 <th>Price/Night</th>
                                 <th>Checkin</th>
                                 <th>Checkout</th>
+                                <th>Number of Rooms</th>
                                 <th>Guests</th>
                                 <th>Subtotal</th>
                             </tr>
@@ -54,6 +55,13 @@
                             $i=0;
                             foreach(session()->get('cart_checkout_date') as $value) {
                                 $arr_cart_checkout_date[$i] = $value;
+                                $i++;
+                            }
+
+                            $arr_cart_no_of_rooms = array();
+                            $i=0;
+                            foreach(session()->get('cart_no_of_rooms') as $value) {
+                                $arr_cart_no_of_rooms[$i] = $value;
                                 $i++;
                             }
 
@@ -88,12 +96,14 @@
                                     <td>₱{{number_format($room_data->price, 2)}}</td>
                                     <td>{{$arr_cart_checkin_date[$i]}}</td>
                                     <td>{{$arr_cart_checkout_date[$i]}}</td>
+                                    <td>{{$arr_cart_no_of_rooms[$i]}}</td>
                                     <td>
                                         Adult: {{$arr_cart_adult[$i]}}<br>
                                         Children: {{$arr_cart_children[$i]}}
                                     </td>
                                     <td>
                                     @php
+                                        $arr = array_sum($arr_cart_no_of_rooms);
                                         $d1 = explode('/',$arr_cart_checkin_date[$i]);
                                         $d2 = explode('/',$arr_cart_checkout_date[$i]);
                                         $d1_new = $d1[2].'-'.$d1[0].'-'.$d1[1];
@@ -102,16 +112,16 @@
                                         $t2 = strtotime($d2_new);
 
                                         $diff = ($t2 - $t1)/60/60/24;
-                                        echo'₱'. number_format($room_data->price * $diff, 2);
+                                        echo'₱'. number_format($room_data->price * $diff * $arr, 2);
                                     @endphp
                                     </td>
                                 </tr>
                                 @php
-                                $total_price = $total_price + ($room_data->price * $diff);
+                                $total_price = $total_price + ($room_data->price * $diff * $arr);
                             }
                             @endphp
                             <tr>
-                                <td colspan="8" class="tar">Total:</td>
+                                <td colspan="9" class="tar">Subtotal:</td>
                                 <td>₱{{number_format($total_price, 2)}}</td>
                             </tr>
                         </tbody>
@@ -123,7 +133,7 @@
                 @else
 
                 <div class="text-danger mb_30">
-                    Cart is empty!
+                    NO BOOKINGS! EMPTY!
                 </div>
                 @endif
             </div>

@@ -417,10 +417,13 @@ select {
 }
 .search-section button[type="submit"] {
 	width: 100%;
-	font-size: 16px;
+	font-size: 20px;
 	background: #e75542;
 	border: 1px solid #e75542;
-	font-weight: 600;
+	font-weight: 1000;
+	margin-top: 15px;
+	margin-left: 450px;
+	box-sizing: border-box;
 }
 @media (max-width: 767px) {
 	.search-section .form-control,
@@ -1168,14 +1171,16 @@ select {
 .room-detail .right {
 	position: relative;
 }
+
 .room-detail .right .widget .book-now {
 	margin-top: 20px;
+	position: relative;
 	background: #e75542;
 	color: #fff;
 	border: 0;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: 600;
-	padding: 10px 20px;
+	padding: 10px 120px;
 	border-radius: 5px;
 }
 @media (max-width: 767px) {

@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row">
             @foreach($post_all as $item)
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="inner">
                     <div class="photo">
                         <img src="{{asset('uploads/'.$item->photo)}}" alt="">

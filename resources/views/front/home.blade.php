@@ -41,12 +41,17 @@
                     </div>
                     <div class="col-lg-2">
                         <div class="form-group">
-                            <input type="number" name="adult" class="form-control" min="1" max="30" placeholder="Adults" required>
+                            <input type="number" name="no_of_rooms" class="form-control" min="1" max="10" placeholder="No. of Rooms" required>
                         </div>
                     </div>
                     <div class="col-lg-2">
                         <div class="form-group">
-                            <input type="number" name="children" class="form-control" min="0" max="30" placeholder="Children">
+                            <input type="number" name="adult" class="form-control" min="1" max="60" placeholder="Adults" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <input type="number" name="children" class="form-control" min="0" max="60" placeholder="Children">
                         </div>
                     </div>
                     <div class="col-lg-2">
@@ -168,9 +173,9 @@
 
                 @foreach($post_all as $item)
                 @if($loop->iteration > $global_setting_data->home_latest_post_total)
-                @break
+                
                 @endif
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="inner">
                         <div class="photo">
                             <img src="{{asset('uploads/'.$item->photo)}}" alt="">

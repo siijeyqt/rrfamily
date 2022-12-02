@@ -11,7 +11,7 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Your Orders</h4>
+                    <h4>Your Bookings</h4>
                 </div>
                 <div class="card-body">
                     {{$total_completed_orders}}

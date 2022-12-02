@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('order_id')->unsigned();
             $table->integer('room_id')->unsigned();
             $table->text('order_no');
+            $table->text('no_of_rooms');
             $table->text('checkin_date');
             $table->text('checkout_date');
             $table->text('adult');

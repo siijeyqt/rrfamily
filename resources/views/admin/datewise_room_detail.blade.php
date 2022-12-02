@@ -30,6 +30,7 @@
                             <tbody>
                                 @php
                                    $rooms =  \App\Models\Room::get();
+                                  
                                 @endphp
                                 @foreach ($rooms as $row)
                                 <tr>
@@ -38,12 +39,14 @@
                                     <td>{{$row->total_rooms}}</td>
                                     <td>
                                         @php
-                                          $count = \App\Models\BookedRoom::where('room_id',$row->id)->where('booking_date',$select_date)->count();
+                                          $count = \App\Models\BookedRoom::where('room_id',$row->id)->where('booking_date',$select_date)->select([DB::raw('sum(no_of_rooms) as total')])->first();
+
+                                        // dd($count->total);
                                         @endphp
-                                        {{$count}}
+                                        {{$count->total == null ? 0 : $count->total}}
                                     </td>
                                     <td>
-                                        {{$row->total_rooms - $count}}
+                                        {{$row->total_rooms - $count->total}}
                                     </td>
                                 </tr>
                                 @endforeach

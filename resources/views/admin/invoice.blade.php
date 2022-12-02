@@ -11,7 +11,7 @@
                 <div class="col-lg-12">
                     <div class="invoice-title">
                         <h2>Invoice</h2>
-                        <div class="invoice-number">Order #{{$order->order_no}}</div>
+                        <div class="invoice-number">Booking #{{$order->order_no}}</div>
                     </div>
                     <hr>
                     <div class="row">
@@ -34,7 +34,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col-md-12">
-                    <div class="section-title">Order Summary</div>
+                    <div class="section-title">Booking Summary</div>
                     <p class="section-lead">Room booking information are given below:</p>
                     <hr class="invoice-above-table">
                     <div class="table-responsive">
@@ -44,12 +44,15 @@
                                 <th>Room Name</th>
                                 <th class="text-center">Checkin Date</th>
                                 <th class="text-center">Checkout Date</th>
+                                <th class="text-center">Number of Rooms</th>
                                 <th class="text-center">Number of Adults</th>
                                 <th class="text-center">Number of Children</th>
+                                <th class="text-center">Reservation Fee</th>
                                 <th class="text-right">Subtotal</th>
                             </tr>
                             @php
                                 $total = 0;
+                                $tax = 200;
                             @endphp
                             @foreach ($order_detail as $item)
                             @php
@@ -60,10 +63,13 @@
                                 <td>{{$room_data->name}}</td>
                                 <td class="text-center">{{$item->checkin_date}}</td>
                                 <td class="text-center">{{ $item->checkout_date }}</td>
+                                <td class="text-center">{{ $item->no_of_rooms }}</td>
                                 <td class="text-center">{{ $item->adult }}</td>
                                 <td class="text-center">{{ $item->children }}</td>
+                                <td class="text-center">₱{{$tax}}</td>
                                 <td class="text-right">
                                     @php
+                                        $arr = $item->no_of_rooms;
                                         $d1 = explode('/',$item->checkin_date);
                                         $d2 = explode('/',$item->checkout_date);
                                         $d1_new = $d1[2].'-'.$d1[0].'-'.$d1[1];
@@ -71,13 +77,13 @@
                                         $t1 = strtotime($d1_new);
                                         $t2 = strtotime($d2_new);
                                         $diff = ($t2 - $t1)/60/60/24;
-                                        $subtotal = $room_data->price * $diff;
+                                        $subtotal = $room_data->price * $diff * $arr;
                                     @endphp
                                     ₱{{number_format($subtotal, 2)}}
                                 </td>
                             </tr>
                             @php
-                                $total += $subtotal;
+                                $total += $subtotal + $tax;
                             @endphp
                             @endforeach
                         </table>

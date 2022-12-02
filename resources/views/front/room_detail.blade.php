@@ -65,6 +65,10 @@
                                 <td>{{$single_room_data->size}}</td>
                             </tr>
                             <tr>
+                                <th>Total Rooms</th>
+                                <td>{{$single_room_data->total_rooms}}</td>
+                            </tr>
+                            <tr>
                                 <th>Number of Beds</th>
                                 <td>{{$single_room_data->total_beds}}</td>
                             </tr>
@@ -98,14 +102,18 @@
                             <input type="text" name="checkin_checkout" class="form-control daterange1" placeholder="Checkin & Checkout" required>
                         </div>
                         <div class="form-group mb_20">
+                            <label for="">Number of Rooms</label>
+                            <input type="number" name="no_of_rooms" class="form-control" min="1" max="10" placeholder="No. of Rooms" required>
+                        </div>
+                        <div class="form-group mb_20">
                             <label for="">Adult</label>
-                            <input type="number" name="adult" class="form-control" min="1" max="30" placeholder="Adults" required>
+                            <input type="number" name="adult" class="form-control" min="1" max="60" placeholder="Adults" required>
                         </div>
                         <div class="form-group mb_20">
                             <label for="">Children</label>
-                            <input type="number" name="children" class="form-control" min="0" max="30" placeholder="Children">
+                            <input type="number" name="children" class="form-control" min="0" max="60" placeholder="Children">
                         </div>
-                        <button type="submit" class="book-now">Add to Cart</button>
+                        <button type="submit" class="book-now">Book Now</button>
                         </form>
                     </div>
                 </div>

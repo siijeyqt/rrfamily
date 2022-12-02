@@ -11,7 +11,7 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Total Orders</h4>
+                    <h4>Total Bookings</h4>
                 </div>
                 <div class="card-body">
                     {{$total_completed_orders}}
@@ -26,7 +26,7 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Total Pending Orders</h4>
+                    <h4>Total Incomplete Orders</h4>
                 </div>
                 <div class="card-body">
                     {{$total_pending_orders}}
@@ -100,7 +100,7 @@
     <div class="col-md-12">
         <section class="section">
             <div class="section-header">
-                <h1>Recent Orders</h1>
+                <h1>Recent Bookings</h1>
             </div>            
         </section>
         <div class="section-body">
@@ -113,7 +113,7 @@
                                     <thead>
                                         <tr>
                                             <th>SL</th>
-                                            <th>Order Number</th>
+                                            <th>Booking Number</th>
                                             <th>Payment Method</th>
                                             <th>Booking Date</th>
                                             <th>Paid Amount</th>
@@ -127,7 +127,7 @@
                                             <td>{{$row->order_no}}</td>
                                             <td>{{$row->payment_method}}</td>
                                             <td>{{$row->booking_date}}</td>
-                                            <td>₱{{$row->paid_amount}}</td>
+                                            <td>₱{{number_format($row->paid_amount, 2)}}</td>
                                             <td class="pt_10 pb_10 w_200">
                                                 <a href="{{route('admin_invoice', $row->id)}}" class="btn btn-warning">Detail</a>
                                                 <a href="{{route('admin_order_delete', $row->id)}}" class="btn btn-danger" onClick="return confirm('Are you sure?');">Delete</a>

@@ -287,15 +287,6 @@
                 });
             </script>
         @endif
-            {{-- <script>
-                $(function() {
-                    $(".daterange1").daterangepicker({
-                        locale: {
-                            format: 'MM/DD/YYYY'
-                        }
-                    });
-                });
-            </script> --}}
         <script>
             (function($){
                 $(".form_subscribe_ajax").on('submit', function(e){

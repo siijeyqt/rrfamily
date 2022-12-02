@@ -25,14 +25,14 @@ class CustomerAuthController extends Controller
 
         ]);
 
-        $credintial = [
+        $credential = [
 
             'email' => $request->email,
             'password'=> $request->password,
             'status' => 1
         ];
 
-        if(Auth::guard('customer')->attempt($credintial)){
+        if(Auth::guard('customer')->attempt($credential)){
 
             return redirect()->route('customer_home');
         }

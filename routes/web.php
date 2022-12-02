@@ -94,8 +94,8 @@ Route::group(['middleware' => ['admin:admin']], function(){
     Route::get('/admin/order/invoice/{id}', [AdminOrderController::class,'invoice'])->name('admin_invoice');
     Route::get('/admin/order/delete/{id}', [AdminOrderController::class,'delete'])->name('admin_order_delete');
 
-    Route::get('/admin/sales-report', [AdminSalesReportController::class,'index'])->name('admin_sales_report');
-    Route::post('/admin/sales-report/submit', [AdminSalesReportController::class,'show'])->name('admin_sales_report_submit');
+    Route::get('/admin/sales-report', [AdminSalesReportController::class,'show'])->name('admin_sales_report');
+    
 
     Route::get('/admin/slide', [AdminSlideController::class,'index'])->name('admin_slide');
     Route::get('/admin/slide/add', [AdminSlideController::class,'add'])->name('admin_slide_add');

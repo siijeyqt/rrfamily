@@ -22,61 +22,71 @@ class BookingController extends Controller
 {
     public function cart_submit(Request $request){
 
-        $request->validate([
+        if(Auth::guard('customer')->check()){
+            $request->validate([
 
-            'room_id' => 'required',
-            'checkin_checkout' => 'required',
-            'adult' => 'required'
+                'room_id' => 'required',
+                'checkin_checkout' => 'required',
+                'adult' => 'required',
+                'no_of_rooms' => 'required'
 
-        ]);
+            ]);
 
-        $dates = explode(' - ',$request->checkin_checkout);
-        $checkin_date = $dates[0];
-        $checkout_date = $dates[1];
+            $dates = explode(' - ',$request->checkin_checkout);
+            $checkin_date = $dates[0];
+            $checkout_date = $dates[1];
 
-        $d1 = explode('/',$checkin_date);
-        $d2 = explode('/',$checkout_date);
-        $d1_new = $d1[2].'-'.$d1[0].'-'.$d1[1];
-        $d2_new = $d2[2].'-'.$d2[0].'-'.$d2[1];
-        $t1 = strtotime($d1_new);
-        $t2 = strtotime($d2_new); 
-        
-        $count = 1;
-        while(1) {
-            if($t1>=$t2) {
-                break;
+            $d1 = explode('/',$checkin_date);
+            $d2 = explode('/',$checkout_date);
+            $d1_new = $d1[2].'-'.$d1[0].'-'.$d1[1];
+            $d2_new = $d2[2].'-'.$d2[0].'-'.$d2[1];
+            $t1 = strtotime($d1_new);
+            $t2 = strtotime($d2_new);
+            
+            $count = 1;
+            while(1) {
+                if($t1>=$t2) {
+                    break;
+                }
+                $single_date = date('m/d/Y',$t1);
+
+                $total_booked = BookedRoom::where('booking_date',$single_date)->where('room_id',$request->room_id)->count();
+                $arr = Room::where('id',$request->room_id)->first();
+                $total_allowed = $arr->total_rooms;
+                
+                $guests = $request->adult + $request->children;
+                // dd($arr);
+                // dd($guests);
+                // dd($request->no_of_rooms * $arr->total_guests);
+                if($request->no_of_rooms > $total_allowed || $guests > ($request->no_of_rooms * $arr->total_guests)){
+                    $count = 0;
+                    break;
+                }
+
+                $t1 = strtotime('+1 day',$t1);
             }
-            $single_date = date('m/d/Y',$t1);
+            if($count == 0){
 
-            $total_booked = BookedRoom::where('booking_date',$single_date)->where('room_id',$request->room_id)->count();
-
-            $arr = Room::where('id',$request->room_id)->first();
-            $total_allowed = $arr->total_rooms;
-
-            if($total_booked == $total_allowed){
-                $count = 0;
-                break;
+                return redirect()->back()->with('error','Maximum number of this room is already reached.');
             }
-
-            $t1 = strtotime('+1 day',$t1);
+            
+            session()->push('cart_room_id',$request->room_id);
+            session()->push('cart_checkin_date',$checkin_date);
+            session()->push('cart_checkout_date',$checkout_date);
+            session()->push('cart_no_of_rooms',$request->no_of_rooms);
+            session()->push('cart_adult',$request->adult);
+            session()->push('cart_children',$request->children);
+            
+            return redirect()->back()->with('success','Your booking is added, check it out NOW!');
         }
-        if($count == 0){
-
-            return redirect()->back()->with('error','Maximum number of this room is already reached.');
+        else{
+            return redirect()->route('customer_login')->with('error','Login first!');
         }
-        
-        session()->push('cart_room_id',$request->room_id);
-        session()->push('cart_checkin_date',$checkin_date);
-        session()->push('cart_checkout_date',$checkout_date);
-        session()->push('cart_adult',$request->adult);
-        session()->push('cart_children',$request->children);
-        
-        return redirect()->back()->with('success','Your booking is added to cart, check it out NOW!');
     }
 
     public function cart_view(){
 
-        return view('front.cart');
+            return view('front.cart');
     }
 
     public function cart_delete($id){
@@ -99,6 +109,12 @@ class BookingController extends Controller
             $arr_cart_checkout_date[$i] = $value;
             $i++;
         }
+        $arr_cart_no_of_rooms = array();
+        $i = 0;
+        foreach(session()->get('cart_no_of_rooms') as $value){
+            $arr_cart_no_of_rooms[$i] = $value;
+            $i++;
+        }
         $arr_cart_adult = array();
         $i = 0;
         foreach(session()->get('cart_adult') as $value){
@@ -114,6 +130,7 @@ class BookingController extends Controller
         session()->forget('cart_room_id');
         session()->forget('cart_checkin_date');
         session()->forget('cart_checkout_date');
+        session()->forget('cart_no_of_rooms');
         session()->forget('cart_adult');
         session()->forget('cart_children');
 
@@ -125,6 +142,7 @@ class BookingController extends Controller
                 session()->push('cart_room_id', $arr_cart_room_id[$i]);
                 session()->push('cart_checkin_date', $arr_cart_checkin_date[$i]);
                 session()->push('cart_checkout_date', $arr_cart_checkout_date[$i]);
+                session()->push('cart_no_of_rooms', $arr_cart_no_of_rooms[$i]);
                 session()->push('cart_adult', $arr_cart_adult[$i]);
                 session()->push('cart_children', $arr_cart_children[$i]);
             }
@@ -184,6 +202,7 @@ class BookingController extends Controller
 
         $client = 'Acjm9MzddsaTPRNABVXZHYsGUlw0KIlLt2ZztbVDvUoPgCdNJCaaFO1dI7K_i0kbLFDcAecCF1yIalW9';
         $secret = 'ECNMRN-LbWYuPAeHa-dPY4hhMhRZTJteeoFZvzSk9kw9e35WSh0EWszHOHiQ8a4sQmCRq_nm2til4Oa2';
+        $tax = 200;
         $apiContext = new \PayPal\Rest\ApiContext(
             new \PayPal\Auth\OAuthTokenCredential(
                 $client, // ClientID
@@ -201,6 +220,7 @@ class BookingController extends Controller
         $amount = new Amount();
         $details = new Details();
 
+        
         $details->setShipping(0)
             ->setTax(0)
             ->setSubtotal($final_price);
@@ -250,6 +270,12 @@ class BookingController extends Controller
                 $arr_cart_checkout_date[$i] = $value;
                 $i++;
             }
+            $arr_cart_no_of_rooms = array();
+            $i = 0;
+            foreach(session()->get('cart_no_of_rooms') as $value){
+                $arr_cart_no_of_rooms[$i] = $value;
+                $i++;
+            }
             $arr_cart_adult = array();
             $i = 0;
             foreach(session()->get('cart_adult') as $value){
@@ -266,6 +292,7 @@ class BookingController extends Controller
             for($i=0; $i<count($arr_cart_room_id); $i++){
 
                 $room_info = Room::where('id',$arr_cart_room_id[$i])->first();
+                $arr = array_sum($arr_cart_no_of_rooms);
                 $d1 = explode('/',$arr_cart_checkin_date[$i]);
                 $d2 = explode('/',$arr_cart_checkout_date[$i]);
                 $d1_new = $d1[2].'-'.$d1[0].'-'.$d1[1];
@@ -274,16 +301,17 @@ class BookingController extends Controller
                 $t2 = strtotime($d2_new);
 
                 $diff = ($t2 - $t1)/60/60/24;
-                $sub = $room_info->price * $diff;
+                $sub = $room_info->price * $diff * $arr;
 
                 $obj = new OrderDetail();
                 $obj->order_id = $ai_id;
                 $obj->room_id = $arr_cart_room_id[$i];
                 $obj->order_no = $order_no;
                 $obj->checkin_date = $arr_cart_checkin_date[$i];
-                $obj->checkout_date = $arr_cart_checkout_date[$i];;
+                $obj->checkout_date = $arr_cart_checkout_date[$i];
+                $obj->no_of_rooms = $arr_cart_no_of_rooms[$i];
                 $obj->adult = $arr_cart_adult[$i];
-                $obj->children = $arr_cart_children[$i];;
+                $obj->children = $arr_cart_children[$i];
                 $obj->subtotal = $sub;
                 $obj->save();
 
@@ -297,6 +325,7 @@ class BookingController extends Controller
                     $obj->order_no = $order_no;
                     $obj->room_id = $arr_cart_room_id[$i];
                     $obj->order_id = $ai_id;
+                    $obj->no_of_rooms = $arr_cart_no_of_rooms[$i];
                     $obj->save();
 
                     $t1 = strtotime('+1 day',$t1);
@@ -308,6 +337,7 @@ class BookingController extends Controller
             $message .= '<br>Order Number: ' .$order_no;
             $message .= '<br>Transaction ID: ' .$result->id;
             $message .= '<br>Payment Method: PayPal';
+            $message .= '<br>Reservation Fee: ₱' .$tax;
             $message .= '<br>Paid Amount: ₱'.$paid_amount;
             $message .= '<br>Booking Date: '.date('m/d/Y').'<br>';
 
@@ -318,6 +348,7 @@ class BookingController extends Controller
                 $message .= '<br>Price per Night: ₱'.$room_info->price;
                 $message .= '<br>Checkin Date: '.$arr_cart_checkin_date[$i];
                 $message .= '<br>Checkout Date: '.$arr_cart_checkout_date[$i];
+                $message .= '<br>Number of Rooms: '.$arr_cart_no_of_rooms[$i];
                 $message .= '<br>Adult: '.$arr_cart_adult[$i];
                 $message .= '<br>Children: '.$arr_cart_children[$i].'<br>';
             }
@@ -328,6 +359,7 @@ class BookingController extends Controller
             session()->forget('cart_room_id');
             session()->forget('cart_checkin_date');
             session()->forget('cart_checkout_date');
+            session()->forget('cart_no_of_rooms');
             session()->forget('cart_adult');
             session()->forget('cart_children');
             session()->forget('billing_name');
