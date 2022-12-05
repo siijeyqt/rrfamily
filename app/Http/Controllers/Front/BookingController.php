@@ -55,9 +55,7 @@ class BookingController extends Controller
                 $total_allowed = $arr->total_rooms;
                 
                 $guests = $request->adult + $request->children;
-                // dd($arr);
-                // dd($guests);
-                // dd($request->no_of_rooms * $arr->total_guests);
+                
                 if($request->no_of_rooms > $total_allowed || $guests > ($request->no_of_rooms * $arr->total_guests)){
                     $count = 0;
                     break;
@@ -67,7 +65,7 @@ class BookingController extends Controller
             }
             if($count == 0){
 
-                return redirect()->back()->with('error','Maximum number of this room is already reached.');
+                return redirect()->back()->with('error','Change the quantity of your NUMBER OF GUESTS or NUMBER OF ROOMS!');
             }
             
             session()->push('cart_room_id',$request->room_id);

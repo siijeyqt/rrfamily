@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-4 checkout-left">
-                <div class="col-lg-8 col-md-4 checkout-left mb_30">
+                <div class="col-lg-9 col-md-4 checkout-left mb_30">
                     
                     <h4>Make Payment</h4>
                     <select name="payment_method" class="form-control select2" id="paymentMethodChange" autocomplete="off">
