@@ -37,14 +37,14 @@
                                     <label class="form-label">Text</label>
                                     <textarea name="text" class="form-control h_100" cols="30" row="10">{{$slide_data->text}}</textarea>
                                 </div>
-                                <div class="mb-4">
+                                {{-- <div class="mb-4">
                                     <label class="form-label">Button Text</label>
                                     <input type="text" class="form-control" name="button_text" value="{{$slide_data->button_text}}">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label">Button URL</label>
                                     <input type="text" class="form-control" name="button_url" value="{{$slide_data->button_url}}">
-                                </div>
+                                </div> --}}
                                 <div class="mb-4">
                                     <label class="form-label"></label>
                                     <button type="submit" class="btn btn-primary">Update</button>
