@@ -18,7 +18,7 @@
                 </ul>
             </li>
 
-            <li class="{{Request::is('admin/datewise-room') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_datewise_room')}}"><i class="fa fa-calendar"></i> <span>Datewise Rooms</span></a></li>
+            <li class="{{Request::is('admin/datewise-room*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_datewise_room')}}"><i class="fa fa-calendar"></i> <span>Datewise Rooms</span></a></li>
 
             <li class="nav-item dropdown {{Request::is('admin/page/about') ? 'active' : ''}} || {{Request::is('admin/page/terms') ? 'active' : ''}} || {{Request::is('admin/page/privacy') ? 'active' : ''}}
             || {{Request::is('admin/page/contact') ? 'active' : ''}} || {{Request::is('admin/page/photo-gallery') ? 'active' : ''}} || {{Request::is('admin/page/video-gallery') ? 'active' : ''}} 
@@ -27,8 +27,8 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fa fa-file-text-o"></i><span>Pages</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{Request::is('admin/page/about*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_about')}}"><i class="fa fa-angle-right"></i> About</a></li>
-                    <li class="{{Request::is('admin/page/terms*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_terms')}}"><i class="fa fa-angle-right"></i>Terms and Conditions</a></li>
-                    <li class="{{Request::is('admin/page/privacy*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_privacy')}}"><i class="fa fa-angle-right"></i>Privacy Policy</a></li>
+                    {{-- <li class="{{Request::is('admin/page/terms*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_terms')}}"><i class="fa fa-angle-right"></i>Terms and Conditions</a></li>
+                    <li class="{{Request::is('admin/page/privacy*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_privacy')}}"><i class="fa fa-angle-right"></i>Privacy Policy</a></li> --}}
                     <li class="{{Request::is('admin/page/contact*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_contact')}}"><i class="fa fa-angle-right"></i>Contact</a></li>
                     <li class="{{Request::is('admin/page/photo-gallery*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_photo_gallery')}}"><i class="fa fa-angle-right"></i>Photo Gallery</a></li>
                     <li class="{{Request::is('admin/page/video-gallery*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_video_gallery')}}"><i class="fa fa-angle-right"></i>Video Gallery</a></li>
