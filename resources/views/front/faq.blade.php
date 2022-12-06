@@ -16,15 +16,15 @@
 <div class="page-content">
     <div class="container">
         <div class="row">
-            @php
-            $i=0;
-            @endphp
-            @foreach($faq_all as $item)
-            @php
-            $i++;
-            @endphp
             <div class="col-md-12">
                 <div class="accordion" id="accordionExample">
+                    @php
+                    $i=0;
+                    @endphp
+                    @foreach($faq_all as $item)
+                    @php
+                    $i++;
+                    @endphp
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="heading{{$i}}">
                         <button class="accordion-button @if($i != 1) collapsed @endif"
