@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 
-@section('heading','Edit Cart Page')
+@section('heading','Edit Booking Page')
 
 @section('main_content')
 <div class="section-body">

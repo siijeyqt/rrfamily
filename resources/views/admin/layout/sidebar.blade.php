@@ -39,7 +39,7 @@
                     <li class="{{Request::is('admin/page/checkout*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_checkout')}}"><i class="fa fa-angle-right"></i>Checkout</a></li>
                     <li class="{{Request::is('admin/page/payment*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_payment')}}"><i class="fa fa-angle-right"></i>Payment</a></li>
                     <li class="{{Request::is('admin/page/signup*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_signup')}}"><i class="fa fa-angle-right"></i>Sign Up</a></li>
-                    <li class="{{Request::is('admin/page/signin*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_signin')}}"><i class="fa fa-angle-right"></i>Sign In</a></li>
+                    <li class="{{Request::is('admin/page/signin*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_signin')}}"><i class="fa fa-angle-right"></i>Log In</a></li>
                     <li class="{{Request::is('admin/page/forget-password*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_forget_password')}}"><i class="fa fa-angle-right"></i>Forget Password</a></li>
                     <li class="{{Request::is('admin/page/reset-password*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_page_reset_password')}}"><i class="fa fa-angle-right"></i>Reset Password</a></li>
                 </ul>

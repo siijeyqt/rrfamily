@@ -32,7 +32,7 @@
                                     <td>{{$row->payment_method}}</td>
                                     <td>{{$row->booking_date}}</td>
                                     <td>₱{{number_format($tax, 2)}}</td>
-                                    <td>₱{{number_format($row->paid_amount + $tax, 2)}}</td>
+                                    <td>₱{{number_format($row->paid_amount, 2)}}</td>
                                     <td class="pt_10 pb_10 w_150">
                                         <a href="{{route('customer_invoice', $row->id)}}" class="btn btn-warning">Detail</a>
                                     </td>
