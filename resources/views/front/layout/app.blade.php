@@ -170,6 +170,10 @@
                                 @if($global_page_data->contact_status == 1)
                                 <li><a href="{{route('contact')}}">{{$global_page_data->contact_heading}}</a></li>
                                 @endif
+                                
+                                @if($global_page_data->faq_status == 1)
+                                <li><a href="{{route('faq')}}">{{$global_page_data->faq_heading}}</a></li>
+                                @endif
 
                             </ul>
                         </div>
