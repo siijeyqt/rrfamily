@@ -1,6 +1,6 @@
 @extends('customer.layout.app')
 
-@section('heading','Order Invoice')
+@section('heading','Booking Invoice')
 
 @section('main_content')
 
