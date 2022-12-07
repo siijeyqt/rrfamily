@@ -173,7 +173,7 @@
 
                 @foreach($post_all as $item)
                 @if($loop->iteration > $global_setting_data->home_latest_post_total)
-                
+                @break
                 @endif
                 <div class="col-md-3">
                     <div class="inner">
