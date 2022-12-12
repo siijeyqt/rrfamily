@@ -60,7 +60,7 @@
             </div>
             <div class="col-lg-6 col-md-6 checkout-right">
                 <div class="inner">
-                    <h4 class="mb_10">Cart Details</h4>
+                    <h4 class="mb_10">Booking Details</h4>
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>

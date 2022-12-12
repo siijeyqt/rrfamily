@@ -69,7 +69,7 @@
             </div>
             <div class="col-lg-4 col-md-4 checkout-right">
                 <div class="inner">
-                    <h4 class="mb_10">Cart Details</h4>
+                    <h4 class="mb_10">Booking Details</h4>
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
