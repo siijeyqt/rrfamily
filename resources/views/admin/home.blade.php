@@ -71,7 +71,7 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Total Active Customers</h4>
+                    <h4>Validated Customers</h4>
                 </div>
                 <div class="card-body">
                     {{$total_active_customers}}
@@ -86,7 +86,7 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Total Inactive Customers</h4>
+                    <h4>Invalidated Customers</h4>
                 </div>
                 <div class="card-body">
                     {{$total_inactive_customers}}

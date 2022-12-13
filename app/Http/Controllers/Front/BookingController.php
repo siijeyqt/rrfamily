@@ -332,7 +332,7 @@ class BookingController extends Controller
 
             $subject = 'New Order';
             $message = 'You have made an order for room booking. The information is given below: <br>';
-            $message .= '<br>Order Number: ' .$order_no;
+            $message .= '<br>Booking Number: ' .$order_no;
             $message .= '<br>Transaction ID: ' .$result->id;
             $message .= '<br>Payment Method: PayPal';
             $message .= '<br>Reservation Fee: ₱' .$tax;

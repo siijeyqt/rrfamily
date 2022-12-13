@@ -66,7 +66,7 @@
                                 <td class="text-center">{{ $item->no_of_rooms }}</td>
                                 <td class="text-center">{{ $item->adult }}</td>
                                 <td class="text-center">{{ $item->children }}</td>
-                                <td class="text-center">₱{{ number_format($tax,2) }}</td>
+                                <td class="text-center">₱{{number_format($tax, 2)}}</td>
                                 <td class="text-right">
                                     @php
                                         $arr = $item->no_of_rooms;

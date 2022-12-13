@@ -36,9 +36,9 @@
                                     <td>{{$row->phone}}</td>
                                     <td class="pt_10 pb_10 w_150">
                                         @if ($row->status == 1)
-                                            <a href="{{route('admin_customer_change_status',$row->id)}}" class="btn btn-success">Active</a>
+                                            <a href="{{route('admin_customer_change_status',$row->id)}}" class="btn btn-success">Validated</a>
                                         @else
-                                            <a href="{{route('admin_customer_change_status',$row->id)}}" class="btn btn-danger">Inactive</a>
+                                            <a href="{{route('admin_customer_change_status',$row->id)}}" class="btn btn-danger">Invalidated</a>
                                         @endif
                                     </td>
                                 </tr>
