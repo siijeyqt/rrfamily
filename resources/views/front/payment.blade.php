@@ -23,10 +23,18 @@
                     <h4>Make Payment</h4>
                     <select name="payment_method" class="form-control select2" id="paymentMethodChange" autocomplete="off">
                         <option value="">Select Payment Method</option>
+                        <option value="WalkIn">Walk In</option>
                         <option value="PayPal">PayPal</option>
                         <option value="Gcash">Gcash</option>
                     </select>
 
+                    <div class="walkin mt_20">
+                        <h4>Pay for Walk In</h4>
+                        <td class="pt_10 pb_10 w_150">
+                            <a href="{{route('walkin')}}" class="btn btn-warning">Detail</a>
+                        </td>
+                    </div>
+                        
                     <div class="paypal mt_20">
                         <h4>Pay with PayPal</h4>
                         <div id="paypal-button"></div>

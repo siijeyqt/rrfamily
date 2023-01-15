@@ -64,6 +64,7 @@ Route::get('/cart/delete/{id}',[BookingController::class,'cart_delete'])->name('
 Route::get('/checkout',[BookingController::class,'checkout'])->name('checkout');
 Route::post('/payment',[BookingController::class,'payment'])->name('payment');
 Route::get('/payment/paypal/{price}',[BookingController::class,'paypal'])->name('paypal');
+Route::get('/payment/walkin',[BookingController::class,'walkin'])->name('walkin');
 
 
 /*Admin*/
@@ -91,6 +92,7 @@ Route::group(['middleware' => ['admin:admin']], function(){
     Route::get('/admin/customers', [AdminCustomerController::class,'index'])->name('admin_customer');
     Route::get('/admin/customer/change-status/{id}', [AdminCustomerController::class,'change_status'])->name('admin_customer_change_status');
     Route::get('/admin/orders', [AdminOrderController::class,'index'])->name('admin_order');
+    Route::post('/admin/orders/change-status/{id}', [AdminOrderController::class,'change_status'])->name('admin_order_change_status');
     Route::get('/admin/order/invoice/{id}', [AdminOrderController::class,'invoice'])->name('admin_invoice');
     Route::get('/admin/order/delete/{id}', [AdminOrderController::class,'delete'])->name('admin_order_delete');
 

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('no_of_rooms');
             $table->text('order_no');
             $table->text('booking_date');
+            $table->text('status');
             $table->timestamps();
         });
     }

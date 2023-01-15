@@ -26,12 +26,13 @@
                     </form>
                     <hr>
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="sales-report">
+                        <table class="table table-bordered" id="example1">
                             <thead>
                                 <tr>
                                     <th>SL</th>
                                     <th>Month - Year</th>
-                                    <th>Sales</th>
+                                    <th class="text-right">Sales</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,7 +43,10 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$row->months}}</td>
-                                    <td>₱{{number_format($row->price,2)}}</td>
+                                    <td class="text-right">₱{{number_format($row->price,2)}}</td>
+                                    <td class="pt_10 pb_10 w_150">
+                                        <a href="" class="btn btn-warning">Detail</a>
+                                    </td>
                                 </tr>
                                 @php
                                     $total += $row->price;
@@ -50,7 +54,7 @@
                                 @endforeach
                                 <tr>
                                     <td class="text-right" colspan="2">Total Revenue</td>
-                                    <td>₱{{number_format($total,2)}}</td>
+                                    <td class="text-right">₱{{number_format($total,2)}}</td>
                                 </tr> 
                             </tbody>
                         </table>

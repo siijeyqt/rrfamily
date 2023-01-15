@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('transaction_id');
             $table->text('payment_method');
             $table->text('paid_amount');
+            $table->text('total_amount');
             $table->text('booking_date');
             $table->text('status');
             $table->timestamps();

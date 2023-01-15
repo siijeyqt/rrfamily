@@ -25,6 +25,7 @@
 	        $('.shipping-form').toggle();
 	    });
 
+		$('.walkin').hide();
 		$('.paypal').hide();
 	    $('.gcash').hide();
 
@@ -35,19 +36,29 @@
 		    {
 		        $('.paypal').show();
 		        $('.gcash').hide();
+				$('.walkin').hide();
 
 		    }
 		    else if($('#paymentMethodChange').val() == 'Gcash')
 		    {
 		        $('.paypal').hide();
 		        $('.gcash').show();
+				$('.walkin').hide();
 
 		    }
-		    else if($('#paymentMethodChange').val() == '')
+		    else if($('#paymentMethodChange').val() == 'WalkIn')
 		    {
 		    	$('.paypal').hide();
 		        $('.gcash').hide();
+				$('.walkin').show();
 		      
+		    }
+
+			else if($('#paymentMethodChange').val() == '')
+		    {
+		    	$('.paypal').hide();
+		        $('.gcash').hide();
+				$('.walkin').hide();
 		    }
 
 		});

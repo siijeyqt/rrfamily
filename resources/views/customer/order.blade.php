@@ -18,6 +18,7 @@
                                     <th>Booking Date</th>
                                     <th>Reservation Fee</th>
                                     <th>Paid Amount</th>
+                                    <th>Payment Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -33,6 +34,11 @@
                                     <td>{{$row->booking_date}}</td>
                                     <td>₱{{number_format($tax, 2)}}</td>
                                     <td>₱{{number_format($row->paid_amount, 2)}}</td>
+                                    <td>@if ($row->status == "Pending")
+                                        <span class="badge badge-pill badge-warning">Pending</span>
+                                        @else
+                                        <span class="badge badge-pill badge-primary">Completed</span>
+                                        @endif</td>
                                     <td class="pt_10 pb_10 w_150">
                                         <a href="{{route('customer_invoice', $row->id)}}" class="btn btn-warning">Detail</a>
                                     </td>

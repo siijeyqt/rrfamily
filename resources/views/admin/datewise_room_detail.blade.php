@@ -39,7 +39,7 @@
                                     <td>{{$row->total_rooms}}</td>
                                     <td>
                                         @php
-                                          $count = \App\Models\BookedRoom::where('room_id',$row->id)->where('booking_date',$select_date)->select([DB::raw('sum(no_of_rooms) as total')])->first();
+                                          $count = \App\Models\BookedRoom::where('room_id',$row->id)->where('booking_date',$select_date)->where('status','Completed')->select([DB::raw('sum(no_of_rooms) as total')])->first();
 
                                         // dd($count->total);
                                         @endphp
