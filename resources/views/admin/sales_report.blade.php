@@ -32,7 +32,6 @@
                                     <th>SL</th>
                                     <th>Month - Year</th>
                                     <th class="text-right">Sales</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,9 +43,6 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$row->months}}</td>
                                     <td class="text-right">₱{{number_format($row->price,2)}}</td>
-                                    <td class="pt_10 pb_10 w_150">
-                                        <a href="" class="btn btn-warning">Detail</a>
-                                    </td>
                                 </tr>
                                 @php
                                     $total += $row->price;
@@ -63,6 +59,10 @@
             </div>
         </div>
     </div>
+    <hr class="about-print-button">
+        <div class="text-md-right">
+            <a href="javascript:window.print();" class="btn btn-warning btn-icon icon-left text-white print-invoice-button"><i class="fa fa-print"></i> Print</a>
+        </div>
 </div>
 @endsection
 

@@ -16,7 +16,7 @@
                                     <th>Booking Number</th>
                                     <th>Payment Method</th>
                                     <th>Booking Date</th>
-                                    <th>Reservation Fee</th>
+                                    <th>Transaction Fee</th>
                                     <th>Total Amount</th>
                                     <th>Paid Amount</th>
                                     <th>Balance</th>
@@ -26,18 +26,26 @@
                             </thead>
                             <tbody>
                                 @php
-                                    $tax = 200;
+                                    $tax = 0.05;
                                 @endphp
                                 @foreach ($orders as $row)
+                                @php
+                                    $order_data = \App\Models\OrderDetail::where('id',$row->id)->first();
+
+                                @endphp
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$row->order_no}}</td>
                                     <td>{{$row->payment_method}}</td>
                                     <td>{{$row->booking_date}}</td>
-                                    <td>₱{{number_format($tax, 2)}}</td>
-                                    <td>₱{{number_format($row->total_amount, 2)}}</td>
-                                    <td>₱{{number_format($row->paid_amount, 2)}}</td>
-                                    <td>₱
+                                    @if($row->payment_method == 'PayPal')
+                                        <td class="text-right">₱{{number_format($order_data->subtotal * $tax, 2)}}</td>
+                                    @else
+                                        <td class="text-right">₱{{number_format(0, 2)}}</td>
+                                    @endif
+                                    <td class="text-right">₱{{number_format($row->total_amount, 2)}}</td>
+                                    <td class="text-right">₱{{number_format($row->paid_amount, 2)}}</td>
+                                    <td class="text-right">₱
                                         {{number_format($row->total_amount - $row->paid_amount, 2)}} 
                                     </td>
                                     <td>@if ($row->status == "Pending")
@@ -50,8 +58,6 @@
                                         <a href="{{route('admin_order_delete', $row->id)}}" class="btn btn-danger" onClick="return confirm('Are you sure?');">Delete</a>
                                     </td>
                                 </tr>
-                                {{-- <form action="{{route('admin_order_change_status', $row->id)}}" method="post" autocomplete="off">
-                                    @csrf --}}
                                     <div class="modal fade" id="exampleModalCenter{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <form action="{{route('admin_order_change_status', $row->id)}}" method="post" autocomplete="off">
                                             @csrf
@@ -81,7 +87,6 @@
                                         </div>
                                     </form>
                                     </div>
-                                {{-- </form> --}}
                                 @endforeach
                             </tbody>
                         </table>

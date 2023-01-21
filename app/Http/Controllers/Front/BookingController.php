@@ -43,7 +43,7 @@ class BookingController extends Controller
             $d2_new = $d2[2].'-'.$d2[0].'-'.$d2[1];
             $t1 = strtotime($d1_new);
             $t2 = strtotime($d2_new);
-            
+
             $count = 1;
             while(1) {
                 if($t1>=$t2) {
@@ -51,13 +51,26 @@ class BookingController extends Controller
                 }
                 $single_date = date('m/d/Y',$t1);
 
-                $total_booked = BookedRoom::where('booking_date',$single_date)->where('room_id',$request->room_id)->count();
+                // $total_booked = BookedRoom::where('booking_date',$single_date)->where('room_id',$request->room_id)->count();
                 $arr = Room::where('id',$request->room_id)->first();
                 $total_allowed = $arr->total_rooms;
                 
                 $guests = $request->adult + $request->children;
                 
-                if($request->no_of_rooms > $total_allowed || $guests > ($request->no_of_rooms * $arr->total_guests)){
+                // if($request->no_of_rooms > $total_allowed || $guests > ($request->no_of_rooms * $arr->total_guests)){
+                //     $count = 0;
+                //     break;
+                // }
+                // if($request->room_no == 1){
+                //     $min = ($request->no_of_rooms * 4) / 2;
+                //     $total_price = getTotal($min_guest, $guests, $arr->price, 500);
+                // }
+                // elseif($request->room_no == 2){
+                //     $min= ($request->no_of_rooms * 10);
+                //     $total_price = getTotal($min_guest, $guests, $arr->price, 400);
+                // }
+                
+                if($guests > ($request->no_of_rooms * $arr->total_guests)){
                     $count = 0;
                     break;
                 }
@@ -66,7 +79,7 @@ class BookingController extends Controller
             }
             if($count == 0){
 
-                return redirect()->back()->with('error','Change the quantity of your NUMBER OF GUESTS or NUMBER OF ROOMS!');
+                return redirect()->back()->with('error','READ the description below per ROOM!');
             }
             
             session()->push('cart_room_id',$request->room_id);
@@ -82,6 +95,15 @@ class BookingController extends Controller
             return redirect()->route('customer_login')->with('error','Login first!');
         }
     }
+
+    // private function getTotal(int $min, int $input_person, int $total_amount, int $excess_price){
+    //     $total = $total_amount;
+    //     if($min < $input_person){
+    //         $excess = $input_person - $min;
+    //         $total = $total_amount + ($excess * $excess_price);
+    //     }
+    //     return $total;
+    // }
 
     public function cart_view(){
 
@@ -198,7 +220,6 @@ class BookingController extends Controller
     }
 
     public function walkin(){
-        $tax = 200;
         $order_no = time();
 
             $statement = DB::select("SHOW TABLE STATUS LIKE 'orders'");
@@ -255,7 +276,7 @@ class BookingController extends Controller
             for($i=0; $i<count($arr_cart_room_id); $i++){
 
                 $room_info = Room::where('id',$arr_cart_room_id[$i])->first();
-                $arr = array_sum($arr_cart_no_of_rooms);
+                $arr = $arr_cart_no_of_rooms[$i];
                 $d1 = explode('/',$arr_cart_checkin_date[$i]);
                 $d2 = explode('/',$arr_cart_checkout_date[$i]);
                 $d1_new = $d1[2].'-'.$d1[0].'-'.$d1[1];
@@ -279,7 +300,7 @@ class BookingController extends Controller
                 $obj->save();
 
                 $obj = Order::where('id',$ai_id)->first();
-                $obj->total_amount = $sub + $tax;
+                $obj->total_amount = $sub;
                 $obj->save();
 
                 while(1) {
@@ -299,6 +320,30 @@ class BookingController extends Controller
                     $t1 = strtotime('+1 day',$t1);
                 }
             }
+
+            $subject = 'New Order';
+            $message = 'You have made an order for room booking. The information is given below: <br>';
+            $message .= '<br>Booking Number: ' .$order_no;
+            $message .= '<br>Transaction ID: Cash';
+            $message .= '<br>Payment Method: Cash';
+            $message .= '<br>Paid Amount: ₱ 0.00';
+            $message .= '<br>Booking Date: '.date('m/d/Y').'<br>';
+
+            for($i=0; $i<count($arr_cart_room_id); $i++){
+
+                $room_info = Room::where('id',$arr_cart_room_id[$i])->first();
+                $message .= '<br>Room Name: '.$room_info->name;
+                $message .= '<br>Price per Night: ₱'.$room_info->price;
+                $message .= '<br>Checkin Date: '.$arr_cart_checkin_date[$i];
+                $message .= '<br>Checkout Date: '.$arr_cart_checkout_date[$i];
+                $message .= '<br>Number of Rooms: '.$arr_cart_no_of_rooms[$i];
+                $message .= '<br>Adult: '.$arr_cart_adult[$i];
+                $message .= '<br>Children: '.$arr_cart_children[$i].'<br>';
+            }
+
+            $customer_email = Auth::guard('customer')->user()->email;
+            \Mail::to($customer_email)->send(new Websitemail($subject,$message));
+
             session()->forget('cart_room_id');
             session()->forget('cart_checkin_date');
             session()->forget('cart_checkout_date');
@@ -321,7 +366,7 @@ class BookingController extends Controller
 
         $client = 'Acjm9MzddsaTPRNABVXZHYsGUlw0KIlLt2ZztbVDvUoPgCdNJCaaFO1dI7K_i0kbLFDcAecCF1yIalW9';
         $secret = 'ECNMRN-LbWYuPAeHa-dPY4hhMhRZTJteeoFZvzSk9kw9e35WSh0EWszHOHiQ8a4sQmCRq_nm2til4Oa2';
-        $tax = 200;
+        $tax = 0.05;
         $apiContext = new \PayPal\Rest\ApiContext(
             new \PayPal\Auth\OAuthTokenCredential(
                 $client, // ClientID
@@ -355,6 +400,7 @@ class BookingController extends Controller
 
         if($result->state == 'approved'){
             $paid_amount = $result->transactions[0]->amount->total;
+            $transac = $paid_amount * $tax;
 
             $order_no = time();
 
@@ -366,7 +412,8 @@ class BookingController extends Controller
             $obj->order_no = $order_no;
             $obj->transaction_id = $result->id;
             $obj->payment_method = 'PayPal';
-            $obj->paid_amount = $paid_amount;
+            $obj->paid_amount = $paid_amount + $transac;
+            $obj->total_amount = 0;
             $obj->booking_date = date('m/d/Y');
             $obj->status = 'Completed';
             $obj->save();
@@ -411,7 +458,7 @@ class BookingController extends Controller
             for($i=0; $i<count($arr_cart_room_id); $i++){
 
                 $room_info = Room::where('id',$arr_cart_room_id[$i])->first();
-                $arr = array_sum($arr_cart_no_of_rooms);
+                $arr = $arr_cart_no_of_rooms[$i];
                 $d1 = explode('/',$arr_cart_checkin_date[$i]);
                 $d2 = explode('/',$arr_cart_checkout_date[$i]);
                 $d1_new = $d1[2].'-'.$d1[0].'-'.$d1[1];
@@ -421,6 +468,7 @@ class BookingController extends Controller
 
                 $diff = ($t2 - $t1)/60/60/24;
                 $sub = $room_info->price * $diff * $arr;
+                $transac = $sub * $tax;
 
                 $obj = new OrderDetail();
                 $obj->order_id = $ai_id;
@@ -434,6 +482,9 @@ class BookingController extends Controller
                 $obj->subtotal = $sub;
                 $obj->save();
 
+                $obj = Order::where('id',$ai_id)->first();
+                $obj->total_amount = $sub + $transac;
+                $obj->save();
                 while(1) {
                     if($t1>=$t2) {
                         break;
@@ -451,14 +502,14 @@ class BookingController extends Controller
                     $t1 = strtotime('+1 day',$t1);
                 }
             }
-
+            $transac = $paid_amount * $tax;
             $subject = 'New Order';
             $message = 'You have made an order for room booking. The information is given below: <br>';
             $message .= '<br>Booking Number: ' .$order_no;
             $message .= '<br>Transaction ID: ' .$result->id;
             $message .= '<br>Payment Method: PayPal';
-            $message .= '<br>Reservation Fee: ₱' .$tax;
-            $message .= '<br>Paid Amount: ₱'.$paid_amount;
+            $message .= '<br>Transaction Fee: ₱' .$transac;
+            $message .= '<br>Paid Amount: ₱'.$paid_amount + $transac;
             $message .= '<br>Booking Date: '.date('m/d/Y').'<br>';
 
             for($i=0; $i<count($arr_cart_room_id); $i++){

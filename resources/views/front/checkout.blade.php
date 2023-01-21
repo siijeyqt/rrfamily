@@ -107,7 +107,7 @@
                                 }
 
                                 $total_price = 0;
-                                $tax = 200;
+                                $tax = 0.05;
                                 for($i = 0; $i < count($arr_cart_room_id);$i++){
                                     
                                     $room_data = DB::table('rooms')->where('id', $arr_cart_room_id[$i])->first();
@@ -125,7 +125,7 @@
                                         </td>
                                         <td class="p_price">
                                             @php
-                                                $arr = array_sum($arr_cart_no_of_rooms);
+                                                $arr = $arr_cart_no_of_rooms[$i];
                                                 $d1 = explode('/',$arr_cart_checkin_date[$i]);
                                                 $d2 = explode('/',$arr_cart_checkout_date[$i]);
                                                 $d1_new = $d1[2].'-'.$d1[0].'-'.$d1[1];
@@ -140,15 +140,16 @@
                                     </tr>
                                     @php
                                     $total_price = $total_price + ($room_data->price * $diff * $arr);
+                                    $transac = $total_price * $tax;
                                 }
                             @endphp
+                                {{-- <tr>
+                                    <td><b>Transaction Fee:</b></td>
+                                    <td class="p_price"><b>₱{{number_format($transac, 2)}}</b></td>
+                                </tr> --}}
                                 <tr>
-                                    <td><b>Reservation Fee:</b></td>
-                                    <td class="p_price"><b>₱{{number_format($tax, 2)}}</b></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Total:</b></td>
-                                    <td class="p_price"><b>₱{{number_format($total_price + $tax, 2)}}</b></td>
+                                    <td><b>Subtotal:</b></td>
+                                    <td class="p_price"><b>₱{{number_format($total_price, 2)}}</b></td>
                                 </tr>
                             </tbody>
                         </table>

@@ -47,16 +47,18 @@
                                 <th class="text-center">Number of Rooms</th>
                                 <th class="text-center">Number of Adults</th>
                                 <th class="text-center">Number of Children</th>
-                                <th class="text-center">Reservation Fee</th>
-                                <th class="text-right">Subtotal</th>
+                                <th class="text-center">Transaction Fee</th>
+                                <th class="text-center">Paid Amount</th>
+                                <th class="text-right">Total</th>
                             </tr>
                             @php
                                 $total = 0;
-                                $tax = 200;
+                                $tax = 0.05;
                             @endphp
                             @foreach ($order_detail as $item)
                             @php
                                $room_data = \App\Models\Room::where('id', $item->room_id)->first();
+                               $order_data = \App\Models\Order::where('id',$item->id)->first();
                             @endphp
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -66,7 +68,12 @@
                                 <td class="text-center">{{ $item->no_of_rooms }}</td>
                                 <td class="text-center">{{ $item->adult }}</td>
                                 <td class="text-center">{{ $item->children }}</td>
-                                <td class="text-center">₱{{number_format($tax, 2)}}</td>
+                                @if($order_data->payment_method == 'PayPal')
+                                    <td class="text-right">₱{{number_format($item->subtotal * $tax, 2)}}</td>
+                                @else
+                                    <td class="text-right">₱{{number_format(0, 2)}}</td>
+                                @endif
+                                <td class="text-right">₱{{number_format($order_data->paid_amount, 2) }}</td>
                                 <td class="text-right">
                                     @php
                                         $arr = $item->no_of_rooms;
@@ -78,21 +85,26 @@
                                         $t2 = strtotime($d2_new);
                                         $diff = ($t2 - $t1)/60/60/24;
                                         $subtotal = $room_data->price * $diff * $arr;
+
+                                        if($order_data->payment_method == 'PayPal'){
+                                            $transac = $subtotal * $tax;
+                                            $total = $transac + $subtotal;
+                                        }
+                                        else{
+                                            $total = $subtotal;
+                                        }
                                     @endphp
-                                    ₱{{number_format($subtotal, 2)}}
+                                    ₱{{number_format($total, 2)}}
                                 </td>
                             </tr>
-                            @php
-                                $total += $subtotal + $tax;
-                            @endphp
                             @endforeach
                         </table>
                     </div>
                     <div class="row mt-4">
                         <div class="col-lg-12 text-right">
                             <div class="invoice-detail-item">
-                                <div class="invoice-detail-name">Total</div>
-                                <div class="invoice-detail-value invoice-detail-value-lg">₱{{number_format($total, 2)}}</div>
+                                <div class="invoice-detail-name">Balance</div>
+                                <div class="invoice-detail-value invoice-detail-value-lg">₱{{number_format($total - $order_data->paid_amount, 2)}}</div>
                             </div>
                         </div>
                     </div>

@@ -50,7 +50,7 @@ class AdminOrderController extends Controller
             $t1 = strtotime($d1_new);
             $t2 = strtotime($d2_new);
             $diff = ($t2 - $t1)/60/60/24;
-            $subtotal = $room_data->price * $diff * $arr;
+            $subtotal = $room_data->price * $diff *$arr;
         }
         // dd($order_detail->all());
         // dd($item);
@@ -59,6 +59,7 @@ class AdminOrderController extends Controller
             $order_data->status = "Pending";
         }
         else{
+            // $order_data->total_amount - $request->payment != 0;
             $order_data->paid_amount += $request->payment;
             $order_data->status = "Completed";
         }
