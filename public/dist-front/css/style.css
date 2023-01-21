@@ -111,6 +111,9 @@ select {
 	color:rgb(255, 0, 0);
 }
 @media (max-width: 991px) { 
+	#booknow{
+		margin-left: 0px;
+	}
 	.top {
 		padding-top: 3px;
 		padding-bottom: 3px;
