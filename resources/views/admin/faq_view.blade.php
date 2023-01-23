@@ -20,7 +20,6 @@
                         <table class="table table-bordered" id="example1">
                             <thead>
                                 <tr>
-                                    <th>SL</th>
                                     <th>Question</th>
                                     <th>Answer</th>
                                     <th>Action</th>
@@ -29,7 +28,6 @@
                             <tbody>
                                 @foreach ($faqs as $row)
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
                                     <td>
                                         {{$row->question}}
                                     </td>

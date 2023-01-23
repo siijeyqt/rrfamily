@@ -20,7 +20,6 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>SL</th>
                                     <th>Room Name</th>
                                     <th>Total Rooms</th>
                                     <th>Booked Rooms</th>
@@ -34,7 +33,6 @@
                                 @endphp
                                 @foreach ($rooms as $row)
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
                                     <td>{{$row->name}}</td>
                                     <td>{{$row->total_rooms}}</td>
                                     <td>

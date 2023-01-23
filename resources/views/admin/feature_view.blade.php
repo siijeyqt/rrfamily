@@ -20,7 +20,6 @@
                         <table class="table table-bordered" id="example1">
                             <thead>
                                 <tr>
-                                    <th>SL</th>
                                     <th>Icon</th>
                                     <th>Heading</th>
                                     <th>Action</th>
@@ -29,7 +28,6 @@
                             <tbody>
                                 @foreach ($features as $row)
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
                                     <td>
                                         <i class="{{$row->icon}} fz_40"></i>
                                     </td>

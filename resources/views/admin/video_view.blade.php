@@ -20,7 +20,6 @@
                         <table class="table table-bordered" id="example1">
                             <thead>
                                 <tr>
-                                    <th>SL</th>
                                     <th>Video Preview</th>
                                     <th>Caption</th>
                                     <th>Action</th>
@@ -29,7 +28,6 @@
                             <tbody>
                                 @foreach ($videos as $row)
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
                                     <td>
                                         <div class="iframe-container1">
                                             <iframe width="560" height="315" src="https://www.youtube.com/embed/{{$row->video_id}}" 

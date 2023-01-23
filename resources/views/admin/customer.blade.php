@@ -12,7 +12,6 @@
                         <table class="table table-bordered" id="example1">
                             <thead>
                                 <tr>
-                                    <th>SL</th>
                                     <th>Photo</th>
                                     <th>Name</th>
                                     <th>Email</th>
@@ -23,7 +22,6 @@
                             <tbody>
                                 @foreach ($customers as $row)
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
                                     <td>
                                         @if($row->photo != '')
                                             <img src="{{asset('uploads/'.$row->photo)}}" alt="" class="w_100">

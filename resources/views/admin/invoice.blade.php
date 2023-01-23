@@ -40,7 +40,6 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-hover table-md">
                             <tr>
-                                <th>SL</th>
                                 <th>Room Name</th>
                                 <th class="text-center">Checkin Date</th>
                                 <th class="text-center">Checkout Date</th>
@@ -62,7 +61,6 @@
                                $order_data = \App\Models\Order::where('id',$item->order_id)->first();
                             @endphp
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
                                 <td>{{$room_data->name}}</td>
                                 <td class="text-center">{{$item->checkin_date}}</td>
                                 <td class="text-center">{{ $item->checkout_date }}</td>

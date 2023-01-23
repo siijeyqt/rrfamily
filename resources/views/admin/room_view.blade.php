@@ -20,7 +20,6 @@
                         <table class="table table-bordered" id="example1">
                             <thead>
                                 <tr>
-                                    <th>SL</th>
                                     <th>Photo</th>
                                     <th>Name</th>
                                     <th>Price (per night)</th>
@@ -36,7 +35,6 @@
                                     $i++;
                                 @endphp
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
                                     <td>
                                         <img src="{{asset('uploads/'.$row->featured_photo)}}" alt="" class="w_200">
                                     </td>

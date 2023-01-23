@@ -12,7 +12,6 @@
                         <table class="table table-bordered" id="example1">
                             <thead>
                                 <tr>
-                                    <th>SL</th>
                                     <th>Booking Number</th>
                                     <th>Payment Method</th>
                                     <th>Booking Date</th>
@@ -33,7 +32,6 @@
                                     $order_data = \App\Models\OrderDetail::where('id',$row->id)->first();
                                 @endphp
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
                                     <td>{{$row->order_no}}</td>
                                     <td>{{$row->payment_method}}</td>
                                     <td>{{$row->booking_date}}</td>
@@ -54,6 +52,9 @@
                                         @endif</td>
                                     <td class="pt_10 pb_10 w_150">
                                         <a href="{{route('customer_invoice', $row->id)}}" class="btn btn-warning">Detail</a>
+                                        @if($row->payment_method == 'Cash')
+                                            <a href="{{route('customer_order_delete', $row->id)}}" class="btn btn-danger" onClick="return confirm('Are you sure?');">Cancel</a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

@@ -20,7 +20,6 @@
                         <table class="table table-bordered" id="example1">
                             <thead>
                                 <tr>
-                                    <th>SL</th>
                                     <th>Name</th>
                                     <th>Action</th>
                                 </tr>
@@ -28,7 +27,6 @@
                             <tbody>
                                 @foreach ($amenities as $row)
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
                                     <td>
                                         {{ $row->name  }}
                                     </td>

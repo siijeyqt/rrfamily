@@ -12,14 +12,12 @@
                         <table class="table table-bordered" id="example1">
                             <thead>
                                 <tr>
-                                    <th>SL</th>
                                     <th>Email</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($all_subscribers as $row)
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
                                     <td>{{$row->email}}</td>
                                 </tr>
                                 @endforeach

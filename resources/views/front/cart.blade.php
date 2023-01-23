@@ -24,7 +24,6 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Serial</th>
                                 <th>Photo</th>
                                 <th>Room Info</th>
                                 <th>Price/Night</th>
@@ -88,7 +87,6 @@
                                     <td>
                                         <a href="{{route('cart_delete',$arr_cart_room_id[$i])}}" class="cart-delete-link" onclick="return confirm('Are you sure?');"><i class="fa fa-times"></i></a>
                                     </td>
-                                    <td>{{$i+1}}</td>
                                     <td><img src="{{asset('uploads/'.$room_data->featured_photo)}}"></td>
                                     <td>
                                         <a href="{{route('room_detail', $room_data->id)}}" class="room-name">{{$room_data->name}}</a>
@@ -121,7 +119,7 @@
                             }
                             @endphp
                             <tr>
-                                <td colspan="9" class="tar">Total:</td>
+                                <td colspan="8" class="tar">Total:</td>
                                 <td>₱{{number_format($total_price, 2)}}</td>
                             </tr>
                         </tbody>

@@ -29,7 +29,6 @@
                         <table class="table table-bordered" id="example1">
                             <thead>
                                 <tr>
-                                    <th>SL</th>
                                     <th>Month - Year</th>
                                     <th class="text-right">Sales</th>
                                 </tr>
@@ -40,7 +39,6 @@
                                 @endphp
                                 @foreach ($data as $row)
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
                                     <td>{{$row->months}}</td>
                                     <td class="text-right">₱{{number_format($row->price,2)}}</td>
                                 </tr>
