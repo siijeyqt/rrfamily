@@ -16,6 +16,10 @@ Sandbox - Business
 rrfamily_sandbox@business.com
 rrfamily051399
 
+Client 1 - 5 Personal Accounts:
+client01@personal.example.com
+client01@personal
+
 API credential
 App name: APP_RRFAMILY_NEW
 rrfamily_sandbox@business.com

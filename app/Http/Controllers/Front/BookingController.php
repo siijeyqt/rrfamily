@@ -359,7 +359,7 @@ class BookingController extends Controller
             session()->forget('billing_province');
             session()->forget('billing_zip');
 
-            return redirect()->route('customer_invoice', $ai_id);
+            return redirect()->route('home')->with('success','Check your Dashboard for details.');
     }
 
     public function paypal($final_price){

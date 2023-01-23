@@ -58,7 +58,7 @@
                             @foreach ($order_detail as $item)
                             @php
                                $room_data = \App\Models\Room::where('id', $item->room_id)->first();
-                               $order_data = \App\Models\Order::where('id',$item->id)->first();
+                               $order_data = \App\Models\Order::where('id',$item->order_id)->first();
                             @endphp
                             <tr>
                                 <td>{{ $loop->iteration }}</td>

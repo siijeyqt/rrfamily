@@ -12,7 +12,6 @@
                         <table class="table table-bordered" id="example1">
                             <thead>
                                 <tr>
-                                    <th>SL</th>
                                     <th>Booking Number</th>
                                     <th>Payment Method</th>
                                     <th>Booking Date</th>
@@ -34,7 +33,6 @@
 
                                 @endphp
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
                                     <td>{{$row->order_no}}</td>
                                     <td>{{$row->payment_method}}</td>
                                     <td>{{$row->booking_date}}</td>

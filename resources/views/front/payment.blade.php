@@ -25,7 +25,6 @@
                         <option value="">Select Payment Method</option>
                         <option value="WalkIn">Walk In</option>
                         <option value="PayPal">PayPal</option>
-                        <option value="Gcash">Gcash</option>
                     </select>
 
                     <div class="walkin mt_20">
@@ -38,11 +37,6 @@
                     <div class="paypal mt_20">
                         <h4>Pay with PayPal</h4>
                         <div id="paypal-button"></div>
-                    </div>
-
-                    <div class="gcash mt_20">
-                        <h4>Pay with Gcash</h4>
-                        <p>Write necessary code here</p>
                     </div>
                 </div>
             </div>
