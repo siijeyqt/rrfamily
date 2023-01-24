@@ -51,16 +51,16 @@ class BookingController extends Controller
                 }
                 $single_date = date('m/d/Y',$t1);
 
-                // $total_booked = BookedRoom::where('booking_date',$single_date)->where('room_id',$request->room_id)->count();
+                $total_booked = BookedRoom::where('booking_date',$single_date)->where('room_id',$request->room_id)->count();
                 $arr = Room::where('id',$request->room_id)->first();
-                $total_allowed = $arr->total_rooms;
                 
+                
+
                 $guests = $request->adult + $request->children;
-                
-                // if($request->no_of_rooms > $total_allowed || $guests > ($request->no_of_rooms * $arr->total_guests)){
-                //     $count = 0;
-                //     break;
-                // }
+                if($request->no_of_rooms > ($arr->total_rooms - $total_booked) || $guests > ($request->no_of_rooms * $arr->total_guests)){
+                    $count = 0;
+                    break;
+                }
                 // if($request->room_no == 1){
                 //     $min = ($request->no_of_rooms * 4) / 2;
                 //     $total_price = getTotal($min_guest, $guests, $arr->price, 500);
@@ -69,17 +69,12 @@ class BookingController extends Controller
                 //     $min= ($request->no_of_rooms * 10);
                 //     $total_price = getTotal($min_guest, $guests, $arr->price, 400);
                 // }
-                
-                if($guests > ($request->no_of_rooms * $arr->total_guests)){
-                    $count = 0;
-                    break;
-                }
 
                 $t1 = strtotime('+1 day',$t1);
             }
             if($count == 0){
 
-                return redirect()->back()->with('error','READ the description below per ROOM!');
+                return redirect()->back()->with('error','READ room description for more DETAILS!');
             }
             
             session()->push('cart_room_id',$request->room_id);
@@ -87,7 +82,7 @@ class BookingController extends Controller
             session()->push('cart_checkout_date',$checkout_date);
             session()->push('cart_no_of_rooms',$request->no_of_rooms);
             session()->push('cart_adult',$request->adult);
-            session()->push('cart_children',$request->children);
+            session()->push('cart_children',$request->children != null ? $request->children: 0);
             
             return redirect()->back()->with('success','Your booking is added, check it out NOW!');
         }
@@ -272,7 +267,7 @@ class BookingController extends Controller
                 $arr_cart_children[$i] = $value;
                 $i++;
             }
-
+            $total = 0;
             for($i=0; $i<count($arr_cart_room_id); $i++){
 
                 $room_info = Room::where('id',$arr_cart_room_id[$i])->first();
@@ -286,6 +281,8 @@ class BookingController extends Controller
 
                 $diff = ($t2 - $t1)/60/60/24;
                 $sub = $room_info->price * $diff * $arr;
+                $total += $sub;
+
 
                 $obj = new OrderDetail();
                 $obj->order_id = $ai_id;
@@ -297,10 +294,6 @@ class BookingController extends Controller
                 $obj->adult = $arr_cart_adult[$i];
                 $obj->children = $arr_cart_children[$i];
                 $obj->subtotal = $sub;
-                $obj->save();
-
-                $obj = Order::where('id',$ai_id)->first();
-                $obj->total_amount = $sub;
                 $obj->save();
 
                 while(1) {
@@ -320,6 +313,10 @@ class BookingController extends Controller
                     $t1 = strtotime('+1 day',$t1);
                 }
             }
+            
+            $obj = Order::where('id',$ai_id)->first();
+            $obj->total_amount = $total;
+            $obj->save();
 
             $subject = 'New Order';
             $message = 'You have made an order for room booking. The information is given below: <br>';
@@ -454,7 +451,7 @@ class BookingController extends Controller
                 $arr_cart_children[$i] = $value;
                 $i++;
             }
-
+            $total = 0;
             for($i=0; $i<count($arr_cart_room_id); $i++){
 
                 $room_info = Room::where('id',$arr_cart_room_id[$i])->first();
@@ -468,7 +465,7 @@ class BookingController extends Controller
 
                 $diff = ($t2 - $t1)/60/60/24;
                 $sub = $room_info->price * $diff * $arr;
-                $transac = $sub * $tax;
+                $total += $sub;
 
                 $obj = new OrderDetail();
                 $obj->order_id = $ai_id;
@@ -482,9 +479,7 @@ class BookingController extends Controller
                 $obj->subtotal = $sub;
                 $obj->save();
 
-                $obj = Order::where('id',$ai_id)->first();
-                $obj->total_amount = $sub + $transac;
-                $obj->save();
+                
                 while(1) {
                     if($t1>=$t2) {
                         break;
@@ -502,7 +497,10 @@ class BookingController extends Controller
                     $t1 = strtotime('+1 day',$t1);
                 }
             }
-            $transac = $paid_amount * $tax;
+            $obj = Order::where('id',$ai_id)->first();
+            $obj->total_amount = $total;
+            $obj->save();
+
             $subject = 'New Order';
             $message = 'You have made an order for room booking. The information is given below: <br>';
             $message .= '<br>Booking Number: ' .$order_no;

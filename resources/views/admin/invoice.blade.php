@@ -46,9 +46,7 @@
                                 <th class="text-center">Number of Rooms</th>
                                 <th class="text-center">Number of Adults</th>
                                 <th class="text-center">Number of Children</th>
-                                <th class="text-center">Transaction Fee</th>
-                                <th class="text-center">Paid Amount</th>
-                                <th class="text-center">Total</th>
+                                <th class="text-center">Subtotal</th>
                             </tr>
                             @php
                                 $total = 0;
@@ -67,43 +65,45 @@
                                 <td class="text-center">{{ $item->no_of_rooms }}</td>
                                 <td class="text-center">{{ $item->adult }}</td>
                                 <td class="text-center">{{ $item->children }}</td>
-                                @if($order_data->payment_method == 'PayPal')
-                                    <td class="text-right">₱{{number_format($item->subtotal * $tax, 2)}}</td>
-                                @else
-                                    <td class="text-right">₱{{number_format(0, 2)}}</td>
-                                @endif
-                                <td class="text-right">₱{{number_format($order_data->paid_amount, 2)}}</td>
                                 <td class="text-right">
-                                    @php
-                                        $arr = $item->no_of_rooms;
-                                        $d1 = explode('/',$item->checkin_date);
-                                        $d2 = explode('/',$item->checkout_date);
-                                        $d1_new = $d1[2].'-'.$d1[0].'-'.$d1[1];
-                                        $d2_new = $d2[2].'-'.$d2[0].'-'.$d2[1];
-                                        $t1 = strtotime($d1_new);
-                                        $t2 = strtotime($d2_new);
-                                        $diff = ($t2 - $t1)/60/60/24;
-                                        $subtotal = $room_data->price * $diff * $arr;
-
-                                        if($order_data->payment_method == 'PayPal'){
-                                            $transac = $subtotal * $tax;
-                                            $total = $transac + $subtotal;
-                                        }
-                                        else{
-                                            $total = $subtotal;
-                                        }
-                                    @endphp
-                                    ₱{{number_format($total, 2)}}
+                                    ₱{{number_format($item->subtotal, 2)}}
                                 </td>
                             </tr>
                             @endforeach
+                            <tr>
+                                <td colspan="6" class="text-right">Subtotal Amount:</td>
+                                <td class="text-right">₱{{number_format($order_data->total_amount, 2)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" class="text-right">Transaction Fee:</td>
+                                @if($order_data->payment_method == 'PayPal')
+                                    <td class="text-right">₱{{number_format($order_data->total_amount * $tax, 2)}}</td>
+                                @else
+                                    <td class="text-right">₱{{number_format(0, 2)}}</td>
+                                @endif
+                            </tr>
+                            <tr>
+                                @if($order_data->payment_method == 'PayPal')
+                                    <td colspan="6" class="text-right">Total Amount:</td>
+                                    <td colspan="7" class="text-right">₱{{number_format($order_data->total_amount + ($order_data->total_amount * $tax), 2)}}</td>
+                                @else
+                                    <td colspan="6" class="text-right">Total Amount:</td>
+                                    <td colspan="7" class="text-right">₱{{number_format($order_data->total_amount, 2)}}</td>
+                                @endif
+                            </tr>
                         </table>
                     </div>
                     <div class="row mt-4">
                         <div class="col-lg-12 text-right">
                             <div class="invoice-detail-item">
+                                <div class="invoice-detail-name">Paid Amount</div>
+                                <div class="invoice-detail-value invoice-detail-value-lg">₱{{number_format($order_data->paid_amount, 2)}}</div>
                                 <div class="invoice-detail-name">Balance</div>
-                                <div class="invoice-detail-value invoice-detail-value-lg">₱{{number_format($total - $order_data->paid_amount, 2)}}</div>
+                                @if($order_data->payment_method == 'PayPal')
+                                    <div class="invoice-detail-value invoice-detail-value-lg">₱{{number_format($order_data->total_amount + ($order_data->total_amount* $tax) - $order_data->paid_amount, 2)}}</div>
+                                @else
+                                    <div class="invoice-detail-value invoice-detail-value-lg">₱{{number_format($order_data->total_amount - $order_data->paid_amount, 2)}}</div>
+                                @endif
                             </div>
                         </div>
                     </div>

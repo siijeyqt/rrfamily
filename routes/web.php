@@ -239,8 +239,8 @@ Route::group(['middleware' => ['customer:customer']], function(){
     Route::get('/customer/home', [CustomerHomeController::class,'index'])->name('customer_home');
     Route::get('/customer/edit-profile', [CustomerProfileController::class,'index'])->name('customer_profile');
     Route::post('/customer/edit-profile-submit',[CustomerProfileController::class,'profile_submit'])->name('customer_profile_submit');
-    Route::get('/customer/order/view', [CustomerOrderController::class,'index'])->name('customer_order_view');
-    Route::get('/customer/invoice/{id}', [CustomerOrderController::class,'invoice'])->name('customer_invoice');
-    Route::get('/customer/order/delete/{id}', [CustomerOrderController::class,'delete'])->name('customer_order_delete');
+    Route::get('/customer/order/view', [CustomerHomeController::class,'index'])->name('customer_order_view');
+    Route::get('/customer/invoice/{id}', [CustomerHomeController::class,'invoice'])->name('customer_invoice');
+    Route::get('/customer/order/delete/{id}', [CustomerHomeController::class,'delete'])->name('customer_order_delete');
 
 });

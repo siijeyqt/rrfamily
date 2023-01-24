@@ -103,15 +103,15 @@
                         </div>
                         <div class="form-group mb_20">
                             <label for="">Number of Rooms</label>
-                            <input type="number" name="no_of_rooms" class="form-control" min="1" max="10" placeholder="No. of Rooms" required>
+                            <input type="number" name="no_of_rooms" class="form-control" placeholder="No. of Rooms" min="1" required>
                         </div>
                         <div class="form-group mb_20">
                             <label for="">Adult</label>
-                            <input type="number" name="adult" class="form-control" min="1" max="60" placeholder="Adults" required>
+                            <input type="number" name="adult" class="form-control" placeholder="Adults" min="1" required>
                         </div>
                         <div class="form-group mb_20">
                             <label for="">Children</label>
-                            <input type="number" name="children" class="form-control" min="0" max="60" placeholder="Children">
+                            <input type="number" name="children" class="form-control" min="0" placeholder="Children">
                         </div>
                         <button type="submit" class="book-now">Book Now</button>
                         </form>

@@ -8,9 +8,7 @@
         </div>
 
         <ul class="sidebar-menu">
-            <li class="{{Request::is('customer/home') ? 'active' : ''}}"><a class="nav-link" href="{{route('customer_home')}}"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
-
-            <li class="{{Request::is('customer/order*') ? 'active' : ''}} || {{Request::is('customer/invoice*') ? 'active' : ''}}"><a class="nav-link" href="{{route('customer_order_view')}}"><i class="fa fa-book"></i> <span>Bookings</span></a></li>
+            <li class="{{Request::is('customer*') ? 'active' : ''}}"><a class="nav-link" href="{{route('customer_home')}}"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
         </ul>
     </aside>
 </div>

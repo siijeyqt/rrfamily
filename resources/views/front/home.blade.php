@@ -41,17 +41,17 @@
                     </div>
                     <div class="col-lg-2">
                         <div class="form-group">
-                            <input type="number" name="no_of_rooms" class="form-control" min="1" max="10" placeholder="No. of Rooms" required>
+                            <input type="number" name="no_of_rooms" class="form-control" placeholder="No. of Rooms" min="1" required>
                         </div>
                     </div>
                     <div class="col-lg-2">
                         <div class="form-group">
-                            <input type="number" name="adult" class="form-control" min="1" max="60" placeholder="Adults" required>
+                            <input type="number" name="adult" class="form-control" placeholder="Adults" min="1" required>
                         </div>
                     </div>
                     <div class="col-lg-2">
                         <div class="form-group">
-                            <input type="number" name="children" class="form-control" min="0" max="60" placeholder="Children">
+                            <input type="number" name="children" class="form-control" min="0" placeholder="Children">
                         </div>
                     </div>
                     <div class="col-lg-2">
