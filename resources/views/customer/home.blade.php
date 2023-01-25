@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
-            <div class="card-icon bg-primary">
+            <div class="card-icon bg-success">
                 <i class="fa fa-shopping-cart"></i>
             </div>
             <div class="card-wrap">
@@ -15,6 +15,21 @@
                 </div>
                 <div class="card-body">
                     {{$total_completed_orders}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <div class="card card-statistic-1">
+            <div class="card-icon bg-primary">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Incomplete Bookings</h4>
+                </div>
+                <div class="card-body">
+                    {{$total_incomplete_orders}}
                 </div>
             </div>
         </div>
@@ -88,12 +103,14 @@
                             @endif
                             <td>@if ($row->status == "Pending")
                                 <span class="badge badge-pill badge-warning">Pending</span>
+                                @elseif($row->status == "Incomplete")
+                                <span class="badge badge-pill badge-light">Incomplete</span>
                                 @else
-                                <span class="badge badge-pill badge-primary">Completed</span>
+                                <span class="badge badge-pill badge-success">Completed</span>
                                 @endif</td>
                             <td class="pt_10 pb_10 w_150">
                                 <a href="{{route('customer_invoice', $row->id)}}" class="btn btn-warning">Detail</a>
-                                @if($row->payment_method == 'Cash')
+                                @if($row->payment_method == 'Cash' && $row->status == 'Pending')
                                     <a href="{{route('customer_order_delete', $row->id)}}" class="btn btn-danger" onClick="return confirm('Are you sure?');">Cancel</a>
                                 @endif
                             </td>

@@ -30,7 +30,7 @@
                             <thead>
                                 <tr>
                                     <th>Month - Year</th>
-                                    <th class="text-right">Sales</th>
+                                    <th>Sales</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,7 +47,7 @@
                                 @endphp
                                 @endforeach
                                 <tr>
-                                    <td class="text-right" colspan="2">Total Revenue</td>
+                                    <td class="text-right" colspan="1">Total Revenue</td>
                                     <td class="text-right">₱{{number_format($total,2)}}</td>
                                 </tr> 
                             </tbody>

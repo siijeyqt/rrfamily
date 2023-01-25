@@ -15,6 +15,7 @@ class AdminHomeController extends Controller
 
         $total_completed_orders = Order::where('status','Completed')->count(); 
         $total_pending_orders = Order::where('status','Pending')->count();
+        $total_incomplete_orders = Order::where('status','Incomplete')->count();
         $total_active_customers = Customer::where('status', 1)->count();
         $total_inactive_customers = Customer::where('status',0)->count();
         $total_rooms = Room::count();
@@ -22,6 +23,6 @@ class AdminHomeController extends Controller
 
         $orders = Order::orderBy('id','desc')->skip(0)->take(5)->get();
         
-        return view('admin.home',compact('total_completed_orders','total_pending_orders','total_active_customers','total_inactive_customers','total_rooms','total_subscribers','orders'));
+        return view('admin.home',compact('total_completed_orders','total_pending_orders','total_incomplete_orders','total_active_customers','total_inactive_customers','total_rooms','total_subscribers','orders'));
     }
 }

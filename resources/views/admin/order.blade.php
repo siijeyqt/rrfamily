@@ -52,9 +52,12 @@
                                     @endif
                                     <td>@if ($row->status == "Pending")
                                         <a type="button" class="badge badge-pill badge-warning" data-toggle="modal" data-target="#exampleModalCenter{{$row->id}}">Pending</a>
+                                        @elseif($row->status == "Incomplete")
+                                        <a type="button" class="badge badge-pill badge-light" data-toggle="modal" data-target="#exampleModalCenter{{$row->id}}">Incomplete</a>
                                         @else
-                                        <span class="badge badge-pill badge-primary">Completed</span>
-                                        @endif</td>
+                                        <span class="badge badge-pill badge-success">Completed</span>
+                                        @endif
+                                    </td>
                                     <td class="pt_10 pb_10 w_150">
                                         <a href="{{route('admin_invoice', $row->id)}}" class="btn btn-warning">Detail</a>
                                         <a href="{{route('admin_order_delete', $row->id)}}" class="btn btn-danger" onClick="return confirm('Are you sure?');">Delete</a>

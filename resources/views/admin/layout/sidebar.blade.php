@@ -45,13 +45,13 @@
                 </ul>
             </li>
 
-            <li class="nav-item dropdown {{Request::is('admin/subscriber/show') ? 'active' : ''}} || {{Request::is('admin/subscriber/send-email') ? 'active' : ''}} ">
+            {{-- <li class="nav-item dropdown {{Request::is('admin/subscriber/show') ? 'active' : ''}} || {{Request::is('admin/subscriber/send-email') ? 'active' : ''}} ">
                 <a href="#" class="nav-link has-dropdown"><i class="fa fa-users"></i><span>Subscribers</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{Request::is('admin/subscriber/show') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_subscriber_show')}}"><i class="fa fa-angle-right"></i>All Subscribers</a></li>
                     <li class="{{Request::is('admin/subscriber/send-email') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_subscriber_send_email')}}"><i class="fa fa-angle-right"></i>Send Email</a></li>
                 </ul>
-            </li>
+            </li> --}}
 
             <li class="{{Request::is('admin/customers') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_customer')}}"><i class="fa fa-user-o"></i> <span>Customers</span></a></li>
             <li class="{{Request::is('admin/order*') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin_order')}}"><i class="fa fa-book"></i> <span>Bookings</span></a></li>

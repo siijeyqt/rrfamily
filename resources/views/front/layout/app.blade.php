@@ -150,7 +150,7 @@
         <div class="footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="item">
                             <h2 class="heading">Site Links</h2>
                             <ul class="useful-links">
@@ -199,7 +199,7 @@
                             </ul>
                         </div>
                     </div> --}}
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="item">
                             <h2 class="heading">Contact</h2>
                             <div class="list-item">
@@ -239,7 +239,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    {{-- <div class="col-md-4">
                         <div class="item">
                             <h2 class="heading">Newsletter</h2>
                             <p>
@@ -256,7 +256,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>

@@ -16,8 +16,9 @@ class CustomerHomeController extends Controller
 
         $total_completed_orders = Order::where('status', 'Completed')->where('customer_id',Auth::guard('customer')->user()->id)->count();
         $total_pending_orders = Order::where('status', 'Pending')->where('customer_id',Auth::guard('customer')->user()->id)->count();
+        $total_incomplete_orders = Order::where('status', 'Incomplete')->where('customer_id',Auth::guard('customer')->user()->id)->count();
         $orders = Order::where('customer_id',Auth::guard('customer')->user()->id)->get();
-        return view('customer.home', compact('total_completed_orders','total_pending_orders','orders'));
+        return view('customer.home', compact('total_completed_orders','total_pending_orders','total_incomplete_orders','orders'));
     }
     
     public function invoice($id){

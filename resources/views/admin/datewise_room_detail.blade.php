@@ -37,14 +37,14 @@
                                     <td>{{$row->total_rooms}}</td>
                                     <td>
                                         @php
-                                          $count = \App\Models\BookedRoom::where('room_id',$row->id)->where('booking_date',$select_date)->where('status','Completed')->select([DB::raw('sum(no_of_rooms) as total')])->first();
+                                        $complete = \App\Models\BookedRoom::where('room_id',$row->id)->where('booking_date',$select_date)->where('status','Completed')->get();
+                                        $incomplete = \App\Models\BookedRoom::where('room_id',$row->id)->where('booking_date',$select_date)->where('status','Incomplete')->get();
 
-                                        // dd($count->total);
                                         @endphp
-                                        {{$count->total == null ? 0 : $count->total}}
+                                        {{!count($complete) && !count($incomplete) ? 0 : (count($complete) + count($incomplete))}}
                                     </td>
                                     <td>
-                                        {{$row->total_rooms - $count->total}}
+                                        {{$row->total_rooms - (count($complete) + count($incomplete))}}
                                     </td>
                                 </tr>
                                 @endforeach
